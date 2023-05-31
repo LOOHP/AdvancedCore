@@ -14,6 +14,7 @@ import org.bukkit.entity.Player;
 import com.bencodez.advancedcore.AdvancedCorePlugin;
 import com.bencodez.advancedcore.api.user.UserStorage;
 import com.bencodez.advancedcore.api.user.usercache.keys.UserDataKey;
+import com.bencodez.advancedcore.api.user.usercache.keys.UserDataKeyBoolean;
 import com.bencodez.advancedcore.api.user.usercache.keys.UserDataKeyInt;
 import com.bencodez.advancedcore.api.user.usercache.keys.UserDataKeyString;
 
@@ -22,6 +23,12 @@ import lombok.Getter;
 public class UserDataManager {
 	@Getter
 	private ArrayList<UserDataKey> keys;
+
+	@Getter
+	private ArrayList<String> intColumns;
+
+	@Getter
+	private ArrayList<String> booleanColumns;
 
 	@Getter
 	private AdvancedCorePlugin plugin;
@@ -36,6 +43,8 @@ public class UserDataManager {
 		this.plugin = plugin;
 		userDataCache = new ConcurrentHashMap<UUID, UserDataCache>();
 		keys = new ArrayList<UserDataKey>();
+		intColumns = new ArrayList<String>();
+		booleanColumns = new ArrayList<String>();
 		timer = Executors.newScheduledThreadPool(1);
 		loadKeys();
 
@@ -61,13 +70,19 @@ public class UserDataManager {
 
 	public void addKey(UserDataKey userDataKey) {
 		keys.add(userDataKey);
+		if (userDataKey instanceof UserDataKeyInt) {
+			intColumns.add(userDataKey.getKey());
+		} else if (userDataKey instanceof UserDataKeyBoolean) {
+			booleanColumns.add(userDataKey.getKey());
+		}
+
 	}
 
 	public void cacheUser(UUID uuid) {
 		plugin.devDebug("Caching " + uuid.toString());
 		if (userDataCache.containsKey(uuid)) {
 			UserDataCache data = userDataCache.get(uuid);
-			data.clearCache();
+			data.clearChanges();
 			data.cache();
 		} else {
 			UserDataCache data = new UserDataCache(this, uuid).cache();
@@ -134,14 +149,11 @@ public class UserDataManager {
 	}
 
 	public boolean isInt(String str) {
-		for (UserDataKey key : keys) {
-			if (key.getKey().equals(str)) {
-				if (key instanceof UserDataKeyInt) {
-					return true;
-				}
-			}
-		}
-		return false;
+		return intColumns.contains(str);
+	}
+
+	public boolean isBoolean(String str) {
+		return booleanColumns.contains(str);
 	}
 
 	private void loadKeys() {
@@ -152,7 +164,7 @@ public class UserDataManager {
 		addKey(new UserDataKeyString("LastOnline").setColumnType("VARCHAR(20)"));
 		addKey(new UserDataKeyString("InputMethod"));
 		addKey(new UserDataKeyString("ChoicePreference"));
-		addKey(new UserDataKeyString("CheckWorld").setColumnType("VARCHAR(5)"));
+		addKey(new UserDataKeyBoolean("CheckWorld"));
 	}
 
 	public void removeCache(UUID uuid) {

@@ -234,20 +234,35 @@ public class UserManager {
 
 	public void purgeOldPlayersNow() {
 		if (plugin.getOptions().isPurgeOldData()) {
-			for (String uuid : getAllUUIDs()) {
-				AdvancedCoreUser user = getUser(UUID.fromString(uuid));
-				int daysOld = plugin.getOptions().getPurgeMinimumDays();
-				int days = user.getNumberOfDaysSinceLogin();
-				if (days == -1) {
-					// fix ones with no last online
-					user.setLastOnline(System.currentTimeMillis());
+			HashMap<UUID, ArrayList<Column>> cols = getAllKeys();
+			for (Entry<UUID, ArrayList<Column>> playerData : cols.entrySet()) {
+				String uuid = playerData.getKey().toString();
+				if (plugin.isEnabled()) {
+					if (uuid != null) {
+						AdvancedCoreUser user = getUser(UUID.fromString(uuid), false);
+						if (user != null) {
+							user.dontCache();
+							user.updateTempCacheWithColumns(playerData.getValue());
+							int daysOld = plugin.getOptions().getPurgeMinimumDays();
+							int days = user.getNumberOfDaysSinceLogin();
+							if (days == -1) {
+								// fix ones with no last online
+								user.setLastOnline(System.currentTimeMillis());
+							}
+							if (days > daysOld) {
+								plugin.debug("Removing " + user.getUUID() + " because of purge");
+								user.remove();
+							}
+
+							user.clearTempCache();
+							cols.put(playerData.getKey(), null);
+							user = null;
+						}
+					}
 				}
-				if (days > daysOld) {
-					plugin.debug("Removing " + user.getUUID() + " because of purge");
-					user.remove();
-				}
-				user.clearCache();
 			}
+			cols.clear();
+			cols = null;
 		}
 		getDataManager().clearCache();
 	}
@@ -347,11 +362,22 @@ public class UserManager {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	public ArrayList<Integer> getNumbersInColumn(String columnName) {
 		if (plugin.getStorageType().equals(UserStorage.MYSQL)) {
 			return plugin.getMysql().getNumbersInColumn(columnName);
 		} else if (plugin.getStorageType().equals(UserStorage.SQLITE)) {
 			return plugin.getSQLiteUserTable().getNumbersInColumn(columnName);
+		} else if (plugin.getStorageType().equals(UserStorage.FLAT)) {
+			ArrayList<Integer> nums = new ArrayList<Integer>();
+			for (String uuid : getAllUUIDs()) {
+				AdvancedCoreUser user = getUser(UUID.fromString(uuid));
+				user.dontCache();
+				int num = user.getData().getInt(columnName, 0, true, true);
+				nums.add(num);
+
+			}
+			return nums;
 		}
 		return new ArrayList<Integer>();
 	}

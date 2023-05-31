@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.bencodez</groupId>
 	<artifactId>advancedcore</artifactId>
-	<version>3.6.6</version>
+	<version>3.6.7</version>
 	<packaging>jar</packaging>
 	<name>AdvancedCore</name>
 	<properties>
@@ -147,8 +147,8 @@
 			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
 		</repository>
 		<repository>
-			<id>velocity</id>
-			<url>https://nexus.velocitypowered.com/repository/maven-public/</url>
+			<id>papermc</id>
+			<url>https://repo.papermc.io/repository/maven-public/</url>
 		</repository>
 		<!--<repository>
 			<id>dmulloy2-repo</id>
@@ -181,11 +181,11 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-	        <groupId>com.github.MilkBowl</groupId>
-	        <artifactId>VaultAPI</artifactId>
-	        <version>1.7</version>
-	        <scope>provided</scope>
-	    </dependency>
+			<groupId>net.milkbowl</groupId>
+			<artifactId>vault</artifactId>
+			<version>1.7.3</version>
+			<scope>provided</scope>
+		</dependency>
 		<dependency>
 			<groupId>me.clip</groupId>
 			<artifactId>placeholderapi</artifactId>

@@ -9,7 +9,6 @@ import java.util.List;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import com.bencodez.advancedcore.AdvancedCorePlugin;
 import com.bencodez.advancedcore.api.inventory.BInventory.ClickEvent;
 import com.bencodez.advancedcore.api.item.ItemBuilder;
 import com.bencodez.advancedcore.api.messages.StringParser;
@@ -87,7 +86,6 @@ public abstract class BInventoryButton {
 
 	public String getLastRewardsPath(Player player) {
 		String test = builder.getRewardsPath(player);
-		AdvancedCorePlugin.getInstance().debug("Path: " + test);
 		return test;
 	}
 

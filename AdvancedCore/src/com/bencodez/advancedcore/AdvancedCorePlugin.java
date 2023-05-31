@@ -1028,6 +1028,10 @@ public abstract class AdvancedCorePlugin extends JavaPlugin {
 	}
 
 	public void userStartup() {
+		if (!loadUserData) {
+			debug("Not loading userdata");
+			return;
+		}
 		rewardHandler.startup();
 		BukkitScheduler.runTaskLaterAsynchronously(this, new Runnable() {
 
@@ -1045,16 +1049,19 @@ public abstract class AdvancedCorePlugin extends JavaPlugin {
 							AdvancedCoreUser user = getUserManager().getUser(UUID.fromString(uuid), false);
 							if (user != null) {
 								user.dontCache();
-								user.updateCacheWithColumns(playerData.getValue());
+								user.updateTempCacheWithColumns(playerData.getValue());
 								for (UserStartup start : userStartup) {
 									start.onStartUp(user);
 								}
 								user.clearTempCache();
+								cols.put(playerData.getKey(), null);
 								user = null;
 							}
 						}
 					}
 				}
+				cols.clear();
+				cols = null;
 				for (UserStartup start : userStartup) {
 					start.onFinish();
 				}

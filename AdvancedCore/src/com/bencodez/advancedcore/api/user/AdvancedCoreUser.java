@@ -209,6 +209,16 @@ public class AdvancedCoreUser {
 		plugin.getUserManager().getDataManager().cacheUserIfNeeded(UUID.fromString(uuid));
 	}
 
+	public void cacheAsync() {
+		plugin.getServer().getScheduler().runTaskAsynchronously(plugin, new Runnable() {
+
+			@Override
+			public void run() {
+				cache();
+			}
+		});
+	}
+
 	public void checkDelayedTimedRewards() {
 		plugin.debug("Checking timed/delayed for " + getPlayerName());
 		HashMap<String, Long> timed = getTimedRewards();
@@ -517,6 +527,27 @@ public class AdvancedCoreUser {
 					}
 				}
 			}, player);
+		}
+
+	}
+	
+	public void giveItems(ItemStack... item) {
+		if (item == null) {
+			return;
+		}
+
+		final Player player = getPlayer();
+
+		if (plugin.isEnabled()) {
+			Bukkit.getScheduler().runTask(plugin, new Runnable() {
+
+				@Override
+				public void run() {
+					if (player != null) {
+						plugin.getFullInventoryHandler().giveItem(player, item);
+					}
+				}
+			});
 		}
 
 	}
@@ -1102,9 +1133,9 @@ public class AdvancedCoreUser {
 		return this;
 	}
 
-	public void updateCacheWithColumns(ArrayList<Column> cols) {
+	public void updateTempCacheWithColumns(ArrayList<Column> cols) {
 		tempCache = true;
-		getUserData().updateCacheWithColumns(cols);
+		getUserData().updateTempCacheWithColumns(cols);
 	}
 
 	public void updateName(boolean force) {
