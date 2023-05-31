@@ -1,5 +1,6 @@
 package com.bencodez.advancedcore.api.hologram;
 
+import com.bencodez.advancedcore.scheduler.BukkitScheduler;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
@@ -21,70 +22,50 @@ public class Hologram {
 
 	public Hologram(Location loc, String name) {
 		this.loc = loc;
-		if (!Bukkit.isPrimaryThread()) {
-			Bukkit.getScheduler().runTask(AdvancedCorePlugin.getInstance(), new Runnable() {
+		BukkitScheduler.executeOrScheduleSync(AdvancedCorePlugin.getInstance(), new Runnable() {
 
-				@Override
-				public void run() {
-					createHologram(name, true, false);
-				}
-			});
-
-		} else {
-			createHologram(name, true, false);
-		}
+			@Override
+			public void run() {
+				createHologram(name, true, false);
+			}
+		});
 
 		AdvancedCorePlugin.getInstance().getHologramHandler().add(this);
 	}
 
 	public Hologram(Location loc, String name, boolean marker) {
 		this.loc = loc;
-		if (!Bukkit.isPrimaryThread()) {
-			Bukkit.getScheduler().runTask(AdvancedCorePlugin.getInstance(), new Runnable() {
+		BukkitScheduler.executeOrScheduleSync(AdvancedCorePlugin.getInstance(), new Runnable() {
 
-				@Override
-				public void run() {
-					createHologram(name, marker, false);
-				}
-			});
-
-		} else {
-			createHologram(name, marker, false);
-		}
+			@Override
+			public void run() {
+				createHologram(name, marker, false);
+			}
+		});
 		AdvancedCorePlugin.getInstance().getHologramHandler().add(this);
 	}
 
 	public Hologram(Location loc, String name, boolean marker, boolean glowing) {
 		this.loc = loc;
-		if (!Bukkit.isPrimaryThread()) {
-			Bukkit.getScheduler().runTask(AdvancedCorePlugin.getInstance(), new Runnable() {
+		BukkitScheduler.executeOrScheduleSync(AdvancedCorePlugin.getInstance(), new Runnable() {
 
-				@Override
-				public void run() {
-					createHologram(name, marker, glowing);
-				}
-			});
-
-		} else {
-			createHologram(name, marker, glowing);
-		}
+			@Override
+			public void run() {
+				createHologram(name, marker, glowing);
+			}
+		});
 		AdvancedCorePlugin.getInstance().getHologramHandler().add(this);
 	}
 
 	public Hologram(Location loc, String name, boolean marker, boolean glowing, NamespacedKey key, int value) {
 		this.loc = loc;
-		if (!Bukkit.isPrimaryThread()) {
-			Bukkit.getScheduler().runTask(AdvancedCorePlugin.getInstance(), new Runnable() {
+		BukkitScheduler.executeOrScheduleSync(AdvancedCorePlugin.getInstance(), new Runnable() {
 
-				@Override
-				public void run() {
-					createHologram(name, marker, glowing, key, value);
-				}
-			});
-
-		} else {
-			createHologram(name, marker, glowing, key, value);
-		}
+			@Override
+			public void run() {
+				createHologram(name, marker, glowing, key, value);
+			}
+		});
 		AdvancedCorePlugin.getInstance().getHologramHandler().add(this);
 	}
 
@@ -140,21 +121,15 @@ public class Hologram {
 	}
 
 	public void kill() {
-		if (!Bukkit.isPrimaryThread()) {
-			Bukkit.getScheduler().runTask(AdvancedCorePlugin.getInstance(), new Runnable() {
+		BukkitScheduler.executeOrScheduleSync(AdvancedCorePlugin.getInstance(), new Runnable() {
 
-				@Override
-				public void run() {
-					armorStand.setHealth(0);
-					armorStand.remove();
-					armorStand = null;
-				}
-			});
-		} else {
-			armorStand.setHealth(0);
-			armorStand.remove();
-			armorStand = null;
-		}
+			@Override
+			public void run() {
+				armorStand.setHealth(0);
+				armorStand.remove();
+				armorStand = null;
+			}
+		});
 		AdvancedCorePlugin.getInstance().getHologramHandler().remove(this, false);
 	}
 }

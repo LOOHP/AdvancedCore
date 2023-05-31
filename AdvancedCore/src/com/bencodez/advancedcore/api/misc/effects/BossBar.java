@@ -2,6 +2,7 @@ package com.bencodez.advancedcore.api.misc.effects;
 
 import java.util.List;
 
+import com.bencodez.advancedcore.scheduler.BukkitScheduler;
 import org.bukkit.Bukkit;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarFlag;
@@ -48,7 +49,7 @@ public class BossBar {
 			bossBar.addPlayer(player);
 
 			if (delay > 0) {
-				Bukkit.getScheduler().runTaskLater(AdvancedCorePlugin.getInstance(), new Runnable() {
+				BukkitScheduler.runTaskLater(AdvancedCorePlugin.getInstance(), new Runnable() {
 
 					@Override
 					public void run() {
@@ -75,7 +76,7 @@ public class BossBar {
 	}
 
 	private void hideInDelay(int delay) {
-		Bukkit.getScheduler().runTaskLater(AdvancedCorePlugin.getInstance(), new Runnable() {
+		BukkitScheduler.runTaskLater(AdvancedCorePlugin.getInstance(), new Runnable() {
 
 			@Override
 			public void run() {

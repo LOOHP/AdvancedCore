@@ -18,6 +18,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
+import com.bencodez.advancedcore.scheduler.BukkitScheduler;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -578,7 +579,7 @@ public class RewardHandler {
 		if (reward != null) {
 			// make sure reward is async to avoid issues
 			if (Bukkit.isPrimaryThread()) {
-				Bukkit.getScheduler().runTaskAsynchronously(plugin, new Runnable() {
+				BukkitScheduler.runTaskAsynchronously(plugin, new Runnable() {
 
 					@Override
 					public void run() {

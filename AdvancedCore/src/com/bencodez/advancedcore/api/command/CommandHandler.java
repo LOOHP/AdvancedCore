@@ -9,6 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.regex.Pattern;
 
+import com.bencodez.advancedcore.scheduler.BukkitScheduler;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -439,7 +440,7 @@ public abstract class CommandHandler {
 			}
 			String[] argsNew = args;
 
-			Bukkit.getServer().getScheduler().runTaskAsynchronously(plugin, new Runnable() {
+			BukkitScheduler.runTaskAsynchronously(plugin, new Runnable() {
 
 				@Override
 				public void run() {

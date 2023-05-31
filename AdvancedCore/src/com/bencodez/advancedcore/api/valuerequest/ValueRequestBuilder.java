@@ -2,6 +2,7 @@ package com.bencodez.advancedcore.api.valuerequest;
 
 import java.util.LinkedHashMap;
 
+import com.bencodez.advancedcore.scheduler.BukkitScheduler;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -35,7 +36,7 @@ public class ValueRequestBuilder {
 
 			@Override
 			public void onInput(Player player, String value) {
-				Bukkit.getScheduler().runTaskAsynchronously(AdvancedCorePlugin.getInstance(), new Runnable() {
+				BukkitScheduler.runTaskAsynchronously(AdvancedCorePlugin.getInstance(), new Runnable() {
 
 					@Override
 					public void run() {
@@ -52,7 +53,7 @@ public class ValueRequestBuilder {
 
 			@Override
 			public void onInput(Player player, boolean value) {
-				Bukkit.getScheduler().runTaskAsynchronously(AdvancedCorePlugin.getInstance(), new Runnable() {
+				BukkitScheduler.runTaskAsynchronously(AdvancedCorePlugin.getInstance(), new Runnable() {
 
 					@Override
 					public void run() {
@@ -68,7 +69,7 @@ public class ValueRequestBuilder {
 
 			@Override
 			public void onInput(Player player, Number value) {
-				Bukkit.getScheduler().runTaskAsynchronously(AdvancedCorePlugin.getInstance(), new Runnable() {
+				BukkitScheduler.runTaskAsynchronously(AdvancedCorePlugin.getInstance(), new Runnable() {
 
 					@Override
 					public void run() {
@@ -85,7 +86,7 @@ public class ValueRequestBuilder {
 
 			@Override
 			public void onInput(Player player, Number value) {
-				Bukkit.getScheduler().runTaskAsynchronously(AdvancedCorePlugin.getInstance(), new Runnable() {
+				BukkitScheduler.runTaskAsynchronously(AdvancedCorePlugin.getInstance(), new Runnable() {
 
 					@Override
 					public void run() {
@@ -102,7 +103,7 @@ public class ValueRequestBuilder {
 
 			@Override
 			public void onInput(Player player, String value) {
-				Bukkit.getScheduler().runTaskAsynchronously(AdvancedCorePlugin.getInstance(), new Runnable() {
+				BukkitScheduler.runTaskAsynchronously(AdvancedCorePlugin.getInstance(), new Runnable() {
 
 					@Override
 					public void run() {

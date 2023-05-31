@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.bencodez.advancedcore.scheduler.BukkitScheduler;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -99,7 +100,7 @@ public abstract class YMLFile {
 			failedToRead = true;
 			e.printStackTrace();
 			plugin.getLogger().severe("Failed to load " + dFile.getName());
-			Bukkit.getScheduler().runTaskAsynchronously(plugin, new Runnable() {
+			BukkitScheduler.runTaskAsynchronously(plugin, new Runnable() {
 
 				@Override
 				public void run() {
@@ -153,7 +154,7 @@ public abstract class YMLFile {
 			failedToRead = true;
 			e.printStackTrace();
 			plugin.getLogger().severe("Failed to load " + dFile.getName());
-			Bukkit.getScheduler().runTaskAsynchronously(plugin, new Runnable() {
+			BukkitScheduler.runTaskAsynchronously(plugin, new Runnable() {
 
 				@Override
 				public void run() {

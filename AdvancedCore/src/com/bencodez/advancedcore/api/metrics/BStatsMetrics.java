@@ -29,6 +29,7 @@ import java.util.zip.GZIPOutputStream;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import com.bencodez.advancedcore.scheduler.BukkitScheduler;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -794,7 +795,7 @@ public class BStatsMetrics {
 		boolean logResponseStatusText = config.getBoolean("logResponseStatusText", false);
 		metricsBase = new MetricsBase("bukkit", serverUUID, serviceId, enabled, this::appendPlatformData,
 				this::appendServiceData,
-				submitDataTask -> Bukkit.getScheduler().runTaskAsynchronously(plugin, submitDataTask),
+				submitDataTask -> BukkitScheduler.runTaskAsynchronously(plugin, submitDataTask),
 				plugin::isEnabled, (message, error) -> this.plugin.getLogger().log(Level.WARNING, message, error),
 				(message) -> this.plugin.getLogger().log(Level.INFO, message), logErrors, logSentData,
 				logResponseStatusText);

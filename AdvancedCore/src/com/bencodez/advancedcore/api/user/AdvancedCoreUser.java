@@ -12,6 +12,7 @@ import java.util.Map.Entry;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
+import com.bencodez.advancedcore.scheduler.BukkitScheduler;
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
 import org.bukkit.OfflinePlayer;
@@ -254,7 +255,7 @@ public class AdvancedCoreUser {
 		setOfflineRewards(new ArrayList<String>());
 		final AdvancedCoreUser user = this;
 		if (plugin.isEnabled()) {
-			Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
+			BukkitScheduler.runTaskLater(plugin, new Runnable() {
 
 				@Override
 				public void run() {
@@ -287,7 +288,7 @@ public class AdvancedCoreUser {
 
 	public void closeInv() {
 		if (plugin.isEnabled()) {
-			Bukkit.getScheduler().runTask(plugin, new Runnable() {
+			BukkitScheduler.runTask(plugin, new Runnable() {
 
 				@Override
 				public void run() {
@@ -296,7 +297,7 @@ public class AdvancedCoreUser {
 						player.closeInventory();
 					}
 				}
-			});
+			}, getPlayer());
 		}
 	}
 
@@ -507,7 +508,7 @@ public class AdvancedCoreUser {
 		final Player player = getPlayer();
 
 		if (plugin.isEnabled()) {
-			Bukkit.getScheduler().runTask(plugin, new Runnable() {
+			BukkitScheduler.runTask(plugin, new Runnable() {
 
 				@Override
 				public void run() {
@@ -515,7 +516,7 @@ public class AdvancedCoreUser {
 						plugin.getFullInventoryHandler().giveItem(player, item);
 					}
 				}
-			});
+			}, player);
 		}
 
 	}
@@ -537,7 +538,7 @@ public class AdvancedCoreUser {
 			try {
 				if (m > 0) {
 					final double money = m;
-					Bukkit.getScheduler().runTask(plugin, new Runnable() {
+					BukkitScheduler.runTask(plugin, new Runnable() {
 
 						@Override
 						public void run() {
@@ -548,7 +549,7 @@ public class AdvancedCoreUser {
 				} else if (m < 0) {
 					m = m * -1;
 					final double money = m;
-					Bukkit.getScheduler().runTask(plugin, new Runnable() {
+					BukkitScheduler.runTask(plugin, new Runnable() {
 
 						@Override
 						public void run() {
@@ -584,14 +585,14 @@ public class AdvancedCoreUser {
 	public void givePotionEffect(String potionName, int duration, int amplifier) {
 		Player player = Bukkit.getPlayer(java.util.UUID.fromString(getUUID()));
 		if (player != null && plugin.isEnabled()) {
-			Bukkit.getScheduler().runTask(plugin, new Runnable() {
+			BukkitScheduler.runTask(plugin, new Runnable() {
 
 				@Override
 				public void run() {
 					player.addPotionEffect(
 							new PotionEffect(PotionEffectType.getByName(potionName), 20 * duration, amplifier));
 				}
-			});
+			}, player);
 
 		}
 	}
@@ -836,7 +837,7 @@ public class AdvancedCoreUser {
 					StringParser.getInstance().replacePlaceHolder(command, placeholders));
 			plugin.debug("Executing player command for " + getPlayerName() + ": " + command);
 			if (plugin.isEnabled()) {
-				Bukkit.getScheduler().runTask(plugin, new Runnable() {
+				BukkitScheduler.runTask(plugin, new Runnable() {
 
 					@Override
 					public void run() {

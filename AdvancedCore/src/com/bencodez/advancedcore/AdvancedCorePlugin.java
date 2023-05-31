@@ -21,6 +21,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+import com.bencodez.advancedcore.scheduler.BukkitScheduler;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
@@ -214,7 +215,7 @@ public abstract class AdvancedCorePlugin extends JavaPlugin {
 	}
 
 	private void checkAutoUpdate() {
-		Bukkit.getScheduler().runTaskAsynchronously(this, new Runnable() {
+		BukkitScheduler.runTaskAsynchronously(this, new Runnable() {
 
 			@Override
 			public void run() {
@@ -227,7 +228,7 @@ public abstract class AdvancedCorePlugin extends JavaPlugin {
 	}
 
 	private void checkCMI() {
-		Bukkit.getScheduler().runTaskAsynchronously(javaPlugin, new Runnable() {
+		BukkitScheduler.runTaskAsynchronously(javaPlugin, new Runnable() {
 
 			@Override
 			public void run() {
@@ -240,7 +241,7 @@ public abstract class AdvancedCorePlugin extends JavaPlugin {
 	}
 
 	private void checkPlaceHolderAPI() {
-		Bukkit.getScheduler().runTaskAsynchronously(this, new Runnable() {
+		BukkitScheduler.runTaskAsynchronously(this, new Runnable() {
 
 			@Override
 			public void run() {
@@ -260,7 +261,7 @@ public abstract class AdvancedCorePlugin extends JavaPlugin {
 		if (!loadServerData) {
 			return;
 		}
-		Bukkit.getScheduler().runTaskAsynchronously(this, new Runnable() {
+		BukkitScheduler.runTaskAsynchronously(this, new Runnable() {
 
 			@Override
 			public void run() {
@@ -813,7 +814,7 @@ public abstract class AdvancedCorePlugin extends JavaPlugin {
 	}
 
 	public void loadVault() {
-		Bukkit.getScheduler().runTaskLater(this, new Runnable() {
+		BukkitScheduler.runTaskLater(this, new Runnable() {
 
 			@Override
 			public void run() {
@@ -1028,7 +1029,7 @@ public abstract class AdvancedCorePlugin extends JavaPlugin {
 
 	public void userStartup() {
 		rewardHandler.startup();
-		Bukkit.getScheduler().runTaskLaterAsynchronously(this, new Runnable() {
+		BukkitScheduler.runTaskLaterAsynchronously(this, new Runnable() {
 
 			@Override
 			public void run() {

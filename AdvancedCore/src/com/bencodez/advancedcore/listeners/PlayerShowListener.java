@@ -1,5 +1,6 @@
 package com.bencodez.advancedcore.listeners;
 
+import com.bencodez.advancedcore.scheduler.BukkitScheduler;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -31,7 +32,7 @@ public class PlayerShowListener implements Listener {
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void onJoin(PlayerShowEvent event) {
 		if (plugin != null && plugin.isEnabled()) {
-			Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, new Runnable() {
+			BukkitScheduler.runTaskLaterAsynchronously(plugin, new Runnable() {
 
 				@Override
 				public void run() {

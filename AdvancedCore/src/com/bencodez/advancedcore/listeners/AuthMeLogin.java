@@ -1,5 +1,6 @@
 package com.bencodez.advancedcore.listeners;
 
+import com.bencodez.advancedcore.scheduler.BukkitScheduler;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,7 +19,7 @@ public class AuthMeLogin implements Listener {
 
 	@EventHandler
 	public void authmeLogin(AuthMeAsyncPreLoginEvent event) {
-		Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, new Runnable() {
+		BukkitScheduler.runTaskLaterAsynchronously(plugin, new Runnable() {
 
 			@Override
 			public void run() {

@@ -3,6 +3,7 @@ package com.bencodez.advancedcore.api.misc.effects;
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import com.bencodez.advancedcore.scheduler.BukkitScheduler;
 import org.bukkit.Bukkit;
 import org.bukkit.DyeColor;
 import org.bukkit.FireworkEffect;
@@ -57,7 +58,7 @@ public class FireworkHandler implements Listener {
 	 */
 	public void launchFirework(Location loc, int power, ArrayList<String> colors, ArrayList<String> fadeOutColor,
 			boolean trail, boolean flicker, ArrayList<String> types) {
-		Bukkit.getScheduler().runTask(plugin, new Runnable() {
+		BukkitScheduler.runTask(plugin, new Runnable() {
 
 			@Override
 			public void run() {
@@ -100,7 +101,7 @@ public class FireworkHandler implements Listener {
 				fireWorks.add(fw);
 				// plugin.debug("Launched firework");
 			}
-		});
+		}, loc);
 
 	}
 
@@ -119,7 +120,7 @@ public class FireworkHandler implements Listener {
 		if (event.getEntity() instanceof Firework) {
 			Firework fw = event.getEntity();
 			if (fireWorks.contains(fw)) {
-				Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, new Runnable() {
+				BukkitScheduler.runTaskLaterAsynchronously(plugin, new Runnable() {
 
 					@Override
 					public void run() {

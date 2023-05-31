@@ -3,6 +3,7 @@ package com.bencodez.advancedcore.api.valuerequest.requesters;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 
+import com.bencodez.advancedcore.scheduler.BukkitScheduler;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.conversations.Conversable;
@@ -124,7 +125,7 @@ public class StringRequester {
 
 					@Override
 					public void onInput(ConversationContext context, Conversable conversable, String input) {
-						Bukkit.getScheduler().runTaskAsynchronously(AdvancedCorePlugin.getInstance(), new Runnable() {
+						BukkitScheduler.runTaskAsynchronously(AdvancedCorePlugin.getInstance(), new Runnable() {
 
 							@Override
 							public void run() {

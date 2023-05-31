@@ -1,5 +1,6 @@
 package com.bencodez.advancedcore.api.valuerequest.book;
 
+import com.bencodez.advancedcore.scheduler.BukkitScheduler;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -48,7 +49,7 @@ public class BookManager implements Listener {
 				}
 				final String input = st;
 				BookSign listener = (BookSign) PlayerUtils.getInstance().getPlayerMeta(player, "BookManager");
-				Bukkit.getScheduler().runTaskAsynchronously(AdvancedCorePlugin.getInstance(), new Runnable() {
+				BukkitScheduler.runTaskAsynchronously(AdvancedCorePlugin.getInstance(), new Runnable() {
 
 					@Override
 					public void run() {

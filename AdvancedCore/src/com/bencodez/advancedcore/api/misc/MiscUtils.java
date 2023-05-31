@@ -20,6 +20,7 @@ import java.util.Map.Entry;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.regex.Pattern;
 
+import com.bencodez.advancedcore.scheduler.BukkitScheduler;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
@@ -107,7 +108,7 @@ public class MiscUtils {
 					ArrayUtils.getInstance().replacePlaceHolder(cmds, placeholders));
 			for (final String cmd : commands) {
 				plugin.debug("Executing console command: " + cmd);
-				Bukkit.getScheduler().runTask(plugin, new Runnable() {
+				BukkitScheduler.runTask(plugin, new Runnable() {
 
 					@Override
 					public void run() {
@@ -126,7 +127,7 @@ public class MiscUtils {
 					StringParser.getInstance().replacePlaceHolder(command, placeholders));
 
 			plugin.debug("Executing console command: " + command);
-			Bukkit.getScheduler().runTask(plugin, new Runnable() {
+			BukkitScheduler.runTask(plugin, new Runnable() {
 
 				@Override
 				public void run() {
@@ -148,7 +149,7 @@ public class MiscUtils {
 					ArrayUtils.getInstance().replacePlaceHolder(cmds, placeholders));
 			for (final String cmd : commands) {
 				plugin.debug("Executing console command: " + cmd);
-				Bukkit.getScheduler().runTask(plugin, new Runnable() {
+				BukkitScheduler.runTask(plugin, new Runnable() {
 
 					@Override
 					public void run() {
@@ -171,7 +172,7 @@ public class MiscUtils {
 			final String cmd = StringParser.getInstance().replacePlaceHolder(command, placeholders);
 
 			plugin.debug("Executing console command: " + command);
-			Bukkit.getScheduler().runTask(plugin, new Runnable() {
+			BukkitScheduler.runTask(plugin, new Runnable() {
 
 				@Override
 				public void run() {

@@ -12,6 +12,7 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
+import com.bencodez.advancedcore.scheduler.BukkitScheduler;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -122,7 +123,7 @@ public class BInventory {
 		}
 
 		public void runSync(Runnable run) {
-			Bukkit.getScheduler().runTask(AdvancedCorePlugin.getInstance(), run);
+			BukkitScheduler.runTask(AdvancedCorePlugin.getInstance(), run);
 		}
 	}
 
@@ -328,7 +329,7 @@ public class BInventory {
 		if (Bukkit.isPrimaryThread()) {
 			p.closeInventory();
 
-			Bukkit.getScheduler().runTaskAsynchronously(AdvancedCorePlugin.getInstance(), new Runnable() {
+			BukkitScheduler.runTaskAsynchronously(AdvancedCorePlugin.getInstance(), new Runnable() {
 
 				@Override
 				public void run() {
@@ -337,13 +338,13 @@ public class BInventory {
 			});
 		} else {
 			closeUpdatingBInv();
-			Bukkit.getScheduler().runTask(AdvancedCorePlugin.getInstance(), new Runnable() {
+			BukkitScheduler.runTask(AdvancedCorePlugin.getInstance(), new Runnable() {
 
 				@Override
 				public void run() {
 					p.closeInventory();
 				}
-			});
+			}, p);
 		}
 	}
 
@@ -493,13 +494,13 @@ public class BInventory {
 	}
 
 	private void openInv(Player player, Inventory inv) {
-		Bukkit.getScheduler().runTask(AdvancedCorePlugin.getInstance(), new Runnable() {
+		BukkitScheduler.runTask(AdvancedCorePlugin.getInstance(), new Runnable() {
 
 			@Override
 			public void run() {
 				player.openInventory(inv);
 			}
-		});
+		}, player);
 	}
 
 	/**

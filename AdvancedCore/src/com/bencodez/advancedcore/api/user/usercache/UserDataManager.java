@@ -7,6 +7,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import com.bencodez.advancedcore.scheduler.BukkitScheduler;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -47,7 +48,7 @@ public class UserDataManager {
 			}
 		}, 60 * 3, 60 * 60, TimeUnit.SECONDS);
 
-		plugin.getServer().getScheduler().runTaskTimerAsynchronously(plugin, new Runnable() {
+		BukkitScheduler.runTaskTimerAsynchronously(plugin, new Runnable() {
 
 			@Override
 			public void run() {
